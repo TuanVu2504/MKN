@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_coordinate_device_locations",
+  "info": {
+    "displayName": "Coordinate",
+    "icon": "location-arrow",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "longitude": {
+      "type": "float",
+      "required": true
+    },
+    "latitude": {
+      "type": "float",
+      "required": true
+    }
+  }
+}

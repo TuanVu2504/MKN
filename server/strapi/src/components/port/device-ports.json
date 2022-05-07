@@ -1,0 +1,31 @@
+{
+  "collectionName": "components_port_device_ports",
+  "info": {
+    "displayName": "device ports",
+    "icon": "network-wired",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "port_index": {
+      "type": "integer",
+      "required": true,
+      "unique": true
+    },
+    "description": {
+      "type": "string"
+    },
+    "to": {
+      "type": "json"
+    },
+    "port_type": {
+      "type": "enumeration",
+      "enum": [
+        "rj45",
+        "rs232",
+        "optic"
+      ],
+      "required": true
+    }
+  }
+}

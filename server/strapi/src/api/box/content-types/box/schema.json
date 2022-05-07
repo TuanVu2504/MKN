@@ -1,0 +1,20 @@
+{
+  "kind": "collectionType",
+  "collectionName": "boxes",
+  "info": {
+    "singularName": "box",
+    "pluralName": "boxes",
+    "displayName": "box"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "network_device": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::network-device.network-device"
+    }
+  }
+}
