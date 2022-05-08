@@ -3,7 +3,7 @@ import { IAuthedUser, IUserInfo } from '/project/shared'
 
 export class AuthenServices {
   static login = function(username: string, password: string){
-    return Fetch.fetch<IAuthedUser>(Fetch.baseUrl + "/api/auth/local", { 
+    return Fetch.doFetch<IAuthedUser>(Fetch.baseUrl + "/api/auth/local", { 
       method: "POST",
       body: JSON.stringify({
         "identifier": username,
@@ -15,6 +15,6 @@ export class AuthenServices {
 
 export class UserServices {
   static getUserByID(id: string|number){
-    return Fetch.fetch<IUserInfo>(Fetch.baseUrl + "/api/users/" + id)
+    return Fetch.doFetch<IUserInfo>(Fetch.baseUrl + "/api/users/" + id)
   }
 }

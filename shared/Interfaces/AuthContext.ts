@@ -4,7 +4,7 @@ export interface IAuthContext {
   logout: () => void
   // verifyCookie: () => void,
   currentUser?: IUserInfo
-  error?:string,
+  error:string[],
 }
 
 export interface IUserInfo {

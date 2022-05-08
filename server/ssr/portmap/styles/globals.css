@@ -6,7 +6,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+  font-family: Roboto mono, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
@@ -21,41 +21,70 @@ a {
 
 @font-face {
   font-family: "Roboto mono";
-  src: url("../../../../shared/assets/fonts/Roboto/Roboto/Roboto-Thin.ttf");
+  src: url("../../../../shared/assets/fonts/Roboto/Roboto_Mono/static/RobotoMono-Thin.ttf");
   font-weight: 100;
   font-size: normal;
 }
 @font-face {
   font-family: "Roboto mono";
-  src: url("../../../../shared/assets/fonts/Roboto/Roboto/Roboto-Light.ttf");
+  src: url("../../../../shared/assets/fonts/Roboto/Roboto_Mono/static/RobotoMono-Light.ttf");
   font-weight: 300;
   font-size: normal;
 }
 
 @font-face {
   font-family: "Roboto mono";
-  src: url("../../../../shared/assets/fonts/Roboto/Roboto/Roboto-Regular.ttf");
+  src: url("../../../../shared/assets/fonts/Roboto/Roboto_Mono/static/RobotoMono-Regular.ttf");
   font-weight: 400;
   font-size: normal;
 }
 
 @font-face {
   font-family: "Roboto mono";
-  src: url("../../../../shared/assets/fonts/Roboto/Roboto/Roboto-Medium.ttf");
+  src: url("../../../../shared/assets/fonts/Roboto/Roboto_Mono/static/RobotoMono-Medium.ttf");
   font-weight: 500;
   font-size: normal;
 }
 
 @font-face {
   font-family: "Roboto mono";
-  src: url("../../../../shared/assets/fonts/Roboto/Roboto/Roboto-Bold.ttf");
+  src: url("../../../../shared/assets/fonts/Roboto/Roboto_Mono/static/RobotoMono-Bold.ttf");
   font-weight: 700;
   font-size: normal;
 }
 
-@font-face {
-  font-family: "Roboto mono";
-  src: url("../../../../shared/assets/fonts/Roboto/Roboto/Roboto-Black.ttf");
-  font-weight: 900;
-  font-size: normal;
+
+@layer components {
+  .spinner {
+    animation: rotate 2s linear infinite;
+    z-index: 2;
+    width: 50px;
+    height: 50px;
+  }
+  .path {
+    stroke: white;
+    stroke-linecap: round;
+    animation: dash 1.5s ease-in-out infinite;
+  }
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 150;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -35;
+  }
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -124;
+  }
 }

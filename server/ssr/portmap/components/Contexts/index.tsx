@@ -8,13 +8,9 @@ import { IUserInfo } from '/project/shared'
 const AuthContext = React.createContext({ loading: true } as IAuthContext)
 export const AuthProvider = (props: { children: any }) => {
   const [loading, setLoading] = React.useState(false)
-  const [error, setError] = React.useState<string>()
+  const [error, setError] = React.useState<string[]>([])
   const [currentUser, setCurrentuser] = React.useState<IUserInfo>()
   const router = useRouter()
-
-  console.log({
-    currentUser, error, loading
-  })
 
   React.useEffect(() => {
     const saveToken = localStorage.getItem(settings.auth_token_name) 
@@ -22,8 +18,8 @@ export const AuthProvider = (props: { children: any }) => {
      * If no token => not authenticated
      */
     if(!saveToken) {
-      router.push({ pathname: settings.basePath + '/login' })
-      setError('Please login')
+      router.push({ pathname: '/login' })
+      setError(['Please login'])
       return
     } 
     
@@ -34,8 +30,8 @@ export const AuthProvider = (props: { children: any }) => {
      */
     if(exp * 1000 < new Date().getTime()){
       localStorage.removeItem(settings.auth_token_name)
-      router.push({ pathname:  settings.basePath + '/login' })
-      setError('Session expired')
+      router.push({ pathname: '/login' })
+      setError(['Session expired'])
       return
     }
 
@@ -48,29 +44,36 @@ export const AuthProvider = (props: { children: any }) => {
     setLoading(true)
     consumeAPI(
       () => UserServices.getUserByID(id).finally(() => setLoading(false)),
-      user => setCurrentuser(user),
-      err => setError(err.error.message)
+      user => { 
+        setCurrentuser(user) 
+        if(router.pathname == "/login") router.push({ pathname: '/' })
+      },
+      err => setError([err.error.message])
     )
-
   }, [])
 
   function login(username: string, password: string) {
-    setError(undefined)
+    setError([])
     setLoading(true)
     return consumeAPI(
-      () => AuthenServices.login(username, password).finally(() => setLoading(false)), 
-      ({ user, jwt  }) => {
+      () => AuthenServices.login(username, password)
+                          .finally(() => setLoading(false)), 
+      ({ user, jwt }) => {
         if(jwt && user){
           Fetch.authorization_token = jwt
           setCurrentuser(user)
           localStorage.setItem(settings.auth_token_name, jwt)
-          router.push({ pathname: settings.basePath })
+          router.push({ pathname: '/' })
+          setLoading
         } else {
-          setError("Login return success but unable to parse json return token")
+          setError(["Login return success but unable to parse json return token"])
         }
       }, 
       err => {
-        setError(err.error.message)
+        setError(
+          "errors" in err.error.details 
+            ? err.error.details.errors.map(e => e.message) 
+            : [err.error.message])
       })
   }
 
@@ -78,7 +81,7 @@ export const AuthProvider = (props: { children: any }) => {
     // clear token from localStorage
     localStorage.removeItem(settings.auth_token_name)
     Fetch.authorization_token = undefined
-    router.push({ pathname:  settings.basePath + '/login' })
+    router.push({ pathname: '/login' })
   }
 
   const context: IAuthContext = {

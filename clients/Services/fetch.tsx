@@ -1,11 +1,10 @@
-
+import { TAPIError } from '/project/shared'
 
 export class Fetch {
   static baseUrl = "https://file.mekongnet.com.kh/strapiserver"
   static authorization_token: string | undefined;
-  static fetch<T>(url: RequestInfo, init?: RequestInit){
+  static doFetch<T>(url: RequestInfo, init?: RequestInit){
     const _init = Object.assign(init || {}, {
-      credentials: "include",
       headers: {
         "Content-Type": "application/json",
         "Accept": "application/json"
@@ -20,13 +19,17 @@ export class Fetch {
     return fetch(url, _init)
     .then( async res => {
       try {
+        const resStatus = res.ok
         const res_obj = await res.json()
-        if(!res.ok){
+        if(!resStatus) 
           throw res_obj
-        }
+        
         return res_obj as T
-      } catch {
-        throw new Error(`can parse object`)
+      } catch(err:any) {
+        if("error" in err){ throw err }
+        throw {
+          data: null, error: { status: 100, message: "Can\'t parse response object", name: "API RESPONSE ERROR" }
+        } as TAPIError
       }
     })
   }
