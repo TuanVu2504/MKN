@@ -1,5 +1,6 @@
 import React from 'react'
 import { useAuth } from '../../components'
+import { Wrapper, Status } from '@googlemaps/react-wrapper'
 
 const map = () => {
   const authContext = useAuth()
@@ -9,10 +10,9 @@ const map = () => {
   
   return (
     <div>
-      <div>
-        
-      </div>
-      
+      <Wrapper apiKey={"AIzaSyAKNGpdR0rVxhgg1N4uf4FMmszL0IqF-_0"}>
+        <div>test </div>
+      </Wrapper>
     </div>
   )
 }
