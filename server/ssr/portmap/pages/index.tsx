@@ -3,7 +3,7 @@ import React from 'react'
 import { useAuth } from '../components'
 
 const Home: NextPage = () => {
-  return <div> test </div>
+  return <div> home page </div>
 }
 
 export default Home

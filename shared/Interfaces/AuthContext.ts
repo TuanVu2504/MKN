@@ -25,12 +25,10 @@ export interface IAuthedUser {
   user: IUserInfo
 }
 
-export interface IJWTToken {
-  /**
-   * @description expired date, *1000 to get corrent expiredDate in miliseconds
-   */
-  exp: number,
-  iat: number,
-  /**@description 1,2,3,4,5 */
-  id: number
+export interface IAuthSigned {
+  /** - uuid string */
+  id: string
+  userID: string
+  /** - datetime miliseconds / 1000 */
+  expiredAt: number
 }

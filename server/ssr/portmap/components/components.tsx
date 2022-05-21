@@ -1,7 +1,7 @@
 import Link, { LinkProps } from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
-
+import { outsideClick } from './Hooks'
 
 
 export function Spiner(props?:{
@@ -30,6 +30,82 @@ export function Spiner(props?:{
     <svg className={style} viewBox="0 0 50 50">
       <circle className={pathStyle} cx="25" cy="25" r="20" fill="none" strokeWidth={strokeWidth}></circle>
     </svg>
+  )
+}
+
+
+type ItemAlign = "left" | "right" | "top" | "bottom"
+export interface IDropListProp<T> {
+  btnClass?: string,
+  children: string,
+  displayName?: keyof T,
+  align?: ItemAlign[],
+  lists: (T & { 
+    willDisplay?: boolean
+    onClick?: () => void
+  })[]
+}
+const doAlign = (align?: ItemAlign[]) => { 
+  if(!align) return ''
+  return align.map(e => e + '-0').join(' ')
+}
+
+export const DropList = <T,>(props: IDropListProp<T>) => {
+  const { children, lists, displayName, align, btnClass } = props
+  const buttonRef = React.useRef<HTMLDivElement>(null)
+  const [expand, setExpand] = React.useState(false)
+
+  const clickHide   = () => { setExpand(false) }
+  const toggle = () => setExpand(s => !s)
+  outsideClick(buttonRef, clickHide)
+
+  return (
+    <div className='text-white inline-block font-semibold relative'>
+      <div 
+        ref={buttonRef} 
+        className={ 
+          btnClass ? btnClass :
+          `bg-sky-700 hover:text-sky-700 hover:bg-sky-100 px-6 py-2 cursor-pointer rounded-lg` 
+        }
+        onClick={toggle}>
+        { children }
+      </div>
+      {
+        expand ? 
+        <div 
+          className={
+            `bg-sky-700`
+            + ` absolute z-10 shadow-md mt-2`
+            + ` ${doAlign(align)}`
+          }>
+        {
+          lists.map((item, kIndex) => {
+            const { onClick, willDisplay = true } = item
+            const itemClick = () => {
+              if(onClick) onClick()
+            }
+            return ( willDisplay && 
+              <div 
+                key={kIndex} 
+                className={
+                    `whitespace-nowrap`
+                  + ` hover:text-sky-700 hover:bg-sky-100`
+                  + ` cursor-pointer px-6 py-2`
+                } 
+                onClick={itemClick}>
+                { 
+                  displayName 
+                    ? `${item[displayName]}`
+                    : JSON.stringify(item)
+                }
+              </div>
+            )
+          })
+        }
+        </div>
+        :null
+      }
+    </div>
   )
 }
 

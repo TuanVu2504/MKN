@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import React from 'react'
 import { AuthenServices, Fetch, consumeAPI, UserServices } from '/project/clients/Services'
-import { IAuthContext, IJWTToken, parseJWT, settings } from '/project/shared'
+import { IAuthContext } from '/project/shared'
 import { IUserInfo } from '/project/shared'
 
 
@@ -13,42 +13,19 @@ export const AuthProvider = (props: { children: any }) => {
   const router = useRouter()
 
   React.useEffect(() => {
-    const saveToken = localStorage.getItem(settings.auth_token_name) 
-    /**
-     * If no token => not authenticated
-     */
-    if(!saveToken) {
-      router.push({ pathname: '/login' })
-      setError(['Please login'])
-      return
-    } 
-    
-    const { exp, id } = parseJWT<IJWTToken>(saveToken)
-
-    /**
-     * If token, but expired => expired session => removeItem from localStorage
-     */
-    if(exp * 1000 < new Date().getTime()){
-      localStorage.removeItem(settings.auth_token_name)
-      router.push({ pathname: '/login' })
-      setError(['Session expired'])
-      return
-    }
-
-    /**
-     * If everything fine, 
-     *  - set token from localStrorage to Fetch class
-     *  - get user detail base on id and update context
-     */
-    Fetch.authorization_token = saveToken
     setLoading(true)
     consumeAPI(
-      () => UserServices.getUserByID(id).finally(() => setLoading(false)),
+      () => AuthenServices
+              .verifyHTTOCookieToken()
+              .finally(() => setLoading(false)),
       user => { 
         setCurrentuser(user) 
         if(router.pathname == "/login") router.push({ pathname: '/' })
       },
-      err => setError([err.error.message])
+      err => { 
+        router.push({ pathname: '/login' })
+        setError([err.error.message]) 
+      }
     )
   }, [])
 
@@ -60,10 +37,8 @@ export const AuthProvider = (props: { children: any }) => {
                           .finally(() => setLoading(false)), 
       ({ user, jwt }) => {
         if(jwt && user){
-          Fetch.authorization_token = jwt
           setCurrentuser(user)
-          localStorage.setItem(settings.auth_token_name, jwt)
-          router.push({ pathname: '/' })
+          router.push({ pathname: '/map' })
           setLoading
         } else {
           setError(["Login return success but unable to parse json return token"])
@@ -78,9 +53,7 @@ export const AuthProvider = (props: { children: any }) => {
   }
 
   function logout(){
-    // clear token from localStorage
-    localStorage.removeItem(settings.auth_token_name)
-    Fetch.authorization_token = undefined
+    AuthenServices.logout()
     router.push({ pathname: '/login' })
   }
 
@@ -100,3 +73,8 @@ export const AuthProvider = (props: { children: any }) => {
 }
 
 export const useAuth = () => React.useContext(AuthContext);
+
+
+
+export * from './MapContext'
+export * from './ModalInputContext'

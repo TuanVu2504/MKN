@@ -10,6 +10,7 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+.right-0 { right: 0 }
 a {
   color: inherit;
   text-decoration: none;
@@ -18,6 +19,60 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.ol-map {
+  min-width: 600px;
+  min-height: 600px;
+  width: 100%;
+  flex: 1;
+  box-sizing: border-box;
+  min-width: 0; min-height: 0;
+}
+.ol-control {
+  position: absolute;
+  background-color: rgba(255,255,255,0.4);
+  border-radius: 4px;
+  padding: 2px;
+}
+.ol-full-screen {
+  top: .5em;
+  right: .5em;
+}
+
+.ol-popup {
+  display: none;
+  position: absolute;
+  background-color: white;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #cccccc;
+  bottom: 12px;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+.ol-popup:after, .ol-popup:before {
+  top: 100%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+.ol-popup:after {
+  border-top-color: white;
+  border-width: 10px;
+  left: 50%;
+  margin-left: -10px;
+}
+.ol-popup:before {
+  border-top-color: #cccccc;
+  border-width: 11px;
+  left: 50%;
+  margin-left: -11px;
+}
+
 
 @font-face {
   font-family: "Roboto mono";

@@ -32,3 +32,18 @@ export function registerEnterAction(cb: () => void) {
     return () => document.removeEventListener("keypress", handler)
   }, [cb])
 }
+
+export function outsideClick<T extends HTMLElement>(ref: React.RefObject<T>, cb: () => void){
+  const handler = React.useCallback((e: MouseEvent ) => {
+    const current = ref.current
+    if(!current) return 
+    if(!current.contains(e.target as Node)){ cb() }
+
+  }, [ref])
+  
+  React.useEffect(() => {
+    document.addEventListener('click', handler )
+    return () => { document.removeEventListener('click', handler )}
+  }, [handler])
+
+}

@@ -4,6 +4,15 @@ const nextConfig = {
     externalDir: true
   },
   reactStrictMode: true,
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/map',
+        permanent: true,
+      },
+    ]
+  }
 }
 
 module.exports = nextConfig

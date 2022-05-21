@@ -1,5 +1,5 @@
 import React from 'react'
-import { useAuth } from '../Contexts'
+import { useAuth, ModalInputProvider } from '../Contexts'
 import { parseRefRect } from '../Hooks'
 import { useRouter } from 'next/router'
 import { NavLink } from '../components'
@@ -11,32 +11,50 @@ export const PageLayout = (props: { children: any }) => {
   
   if(!authContext.currentUser) return <div></div>
   
-  return (
-    <div className='min-h-screen flex flex-row'>
-      <div className='px-2 py-2 flex flex-col border-r-gray-300 border-solid border'>
-        <div style={{ height }}>
-        </div>
+  return ( 
+    <>
+      <ModalInputProvider>
+        <div className='min-h-screen flex flex-row'>
+          <div className='px-2 py-2 flex flex-col border-r-gray-300 border-solid border'>
+            <div style={{ height }}>
+            </div>
 
-        <div className='mt-3'>
-          <div className='text-xs ml-4 my-2 text-gray-400 font-semibold uppercase'>tools</div>
-          <NavLink href={'/map'} activeClassName=' bg-sky-700 text-white'>
-            <a className='block mt-2 px-4 py-2 rounded-lg hover:bg-sky-100 hover:text-sky-700 font-semibold cursor-pointer'>
-              Port Map
-            </a>
-          </NavLink>
+            <div className='mt-3'>
+              <div className='text-xs ml-4 my-2 text-gray-400 font-semibold uppercase'>tools</div>
+              <NavLink href={'/map'} activeClassName=' bg-sky-700 text-white'>
+                <a className='block mt-2 px-4 py-2 rounded-lg hover:bg-sky-100 hover:text-sky-700 font-semibold cursor-pointer'>
+                  Port Map
+                </a>
+              </NavLink>
 
-          <NavLink href={'/admin'} activeClassName=' bg-sky-700 text-white'>
-            <a className='block mt-2 px-4 py-2 rounded-lg hover:bg-sky-100 hover:text-sky-700 font-semibold cursor-pointer'>
-              Admin
-            </a>
-          </NavLink>
+              <NavLink href={'/chat'} activeClassName=' bg-sky-700 text-white'>
+                <a className='block mt-2 px-4 py-2 rounded-lg hover:bg-sky-100 hover:text-sky-700 font-semibold cursor-pointer'>
+                  Chat
+                </a>
+              </NavLink>
+
+              <NavLink href={'/task'} activeClassName=' bg-sky-700 text-white'>
+                <a className='block mt-2 px-4 py-2 rounded-lg hover:bg-sky-100 hover:text-sky-700 font-semibold cursor-pointer'>
+                  Task
+                </a>
+              </NavLink>
+
+              <NavLink href={'/admin'} activeClassName=' bg-sky-700 text-white'>
+                <a className='block mt-2 px-4 py-2 rounded-lg hover:bg-sky-100 hover:text-sky-700 font-semibold cursor-pointer'>
+                  Admin
+                </a>
+              </NavLink>
+
+              
+            </div>
+          </div>
+          <div className='flex-1 flex flex-col'>
+            <CurrentUser ref={top_header_ref} />
+            {props.children}
+          </div>
         </div>
-      </div>
-      <div className='flex-1 px-8 flex flex-col'>
-        <CurrentUser ref={top_header_ref} />
-        {props.children}
-      </div>
-    </div>
+      </ModalInputProvider>
+    </>
   )
 }
 
@@ -46,7 +64,7 @@ const CurrentUser = React.forwardRef<HTMLDivElement>((props, ref) => {
   const { username } = currentUser!
   const router = useRouter()
   return (
-    <div className='py-6 flex flex-row items-center border-b border-b-gray-300' ref={ref}>
+    <div className='px-8 py-6 flex flex-row items-center border-b border-b-gray-300' ref={ref}>
       <div
         className={`rounded-full w-12 h-12 bg-sky-700 relative flex items-center justify-center` 
                   + ' before:absolute before:w-14 before:h-14 before:rounded-full before:border-2p before:border-sky-500'
