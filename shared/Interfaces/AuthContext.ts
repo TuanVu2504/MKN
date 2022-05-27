@@ -1,28 +1,16 @@
+import { IDBUserInfo } from '/project/shared'
 export interface IAuthContext {
   loading: boolean,
   login: (username: string, password: string) => void
   logout: () => void
   // verifyCookie: () => void,
-  currentUser?: IUserInfo
+  currentUser?: IDBUserInfo
   error:string[],
-}
-
-export interface IUserInfo {
-  blocked: boolean,
-  confirmed: boolean,
-  /**@description yyyy-MM-ddTHH:mm:ss, conver to correct timezone by new Date(this) */
-  createdAt: string,
-  email: string,
-  id: number,
-  provider: "local"
-  /**@description yyyy-MM-ddTHH:mm:ss, conver to correct timezone by new Date(this) */
-  updatedAt: string
-  username: string
 }
 
 export interface IAuthedUser {
   jwt: string,
-  user: IUserInfo
+  user: IDBUserInfo
 }
 
 export interface IAuthSigned {

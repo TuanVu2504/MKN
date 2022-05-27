@@ -11,7 +11,7 @@ router.route('/:id')
     const user = await UserModel.getUserByID(req.params.id)
     const authedUser : IAuthedUser = {
       jwt: token,
-      user: user.props
+      user: user.toJSON()
     }
     res.json(authedUser)
   }))

@@ -1,10 +1,13 @@
-import { IBox, IDeployedBox, ICustomer, INetworkDevice } from '/project/shared'
-import { MKNBase } from '@Backend/models'
+import { IDeployedBox, ICustomer, INetworkDevice, IDBItems } from '/project/shared'
+import { MKNBase, Item } from '@Backend/models'
 
-export interface Box extends IBox {}
-export class Box extends MKNBase<IBox> implements IBox {
-  protected __constructor: IBox
-  constructor(props: IBox){
+
+export interface IDBBox extends IDBItems {
+  concac: string
+}
+
+export class Box extends Item {
+  constructor(props: IDBBox){
     super(props)
     Object.assign(this, props)
   }

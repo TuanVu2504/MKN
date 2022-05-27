@@ -1,6 +1,6 @@
-import { IBox, ISurveyBoxRequest, IThingsCoordinate, IUser } from '.'
+import { IBox, IViewCoordinate, IDBUserInfo, IDeployBoxRequest } from '/project/shared'
 
-export interface IDeployedBox extends IBox, ISurveyBoxRequest, IThingsCoordinate {
-  deployedBy: IUser,
-  deployedAt: string
+export interface IDeployedBox extends IBox, IDeployBoxRequest, IViewCoordinate {
+  deployedBy: IDBUserInfo,
+  deployedAt: string,
 }

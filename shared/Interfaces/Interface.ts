@@ -1,6 +1,13 @@
-import { ISurveyBoxRequest } from '.'
+// import { IDBCoordinate } from '/project/shared'
 
-// GENERIC
+// // GENERIC
+
+// export interface ICreatable {
+//   /** - string represent date in miliseconds */
+//   createdAt: string
+//   createdBy: IDBUserInfo
+// }
+
 export type TAPIError = {
   data: null, 
   error: {
@@ -14,80 +21,105 @@ export type TAPIError = {
 export type TErrorDetail = {}
   | { errors: { path: string[], name: string, message: string }[] }
 
-interface IPassword {
-
-}
-
-
-// CUSTOMER
-export interface ICustomer {
-
-}
-
-// USER
-export interface IUser {
-  username: string,
-  email: string,
-  provider: string,
-  password: IPassword,
-  resetPasswordToken: string,
-  confirmationToken: string,
-  confirmed: boolean,
-  blocked: boolean,
-  role: IUserPermission
-}
-
-interface IUserPermission {
-}
-
-// DEVICES
-export interface IDevice {
-  /**@description `uuidv4` */
-  device_id: string,
-  snOrImei: string,
-  brand: string,
-  name: string
-}
-export interface INetworkDevice extends IDevice {
-  ports: IPort[]
-}
-//// DEVICE ELEMENTS
-export type TPortType = "rj45" | "rs232" | "optic"
-
-export interface IPort {
-  port_index: number,
-  description: string,
-  to: object
-  port_type: TPortType
-}
-
-//// BOX
-export interface IBox extends INetworkDevice, IStock {
+export type IMethod = 'GET' | 'POST' | 'DELETE' | 'PUT' | "ALL"
+export type IResource = 'page' | 'category' | 'user' | 'customer' | 'contract' | 'ticket' | 'ALL'
   
+// interface IPassword {
+
+// }
+
+
+// // CUSTOMER
+// export interface ICustomer {
+
+// }
+
+// // USER
+// export interface IRole {
+//   /** - Generate by uuid */
+//   roleID: string
+// }
+
+// export interface IRolePermission extends IRole {
+//   permissions: TPermission[]
+// }
+
+// export interface IPermission {
+//   /** - Generate by uuid */
+//   permissionID: string,
+//   resource: IResource
+//   /** 
+//    * sub thing in `content` 
+//    * - page may have 'admin_page' | 'role_page' 
+//    * -  
+//    */
+//   resourceID?: string
+//   method: IMethod
+// }
+
+// export type TPermission = IPermission
+
+// export interface IUserRole extends IDBUserInfo {
+//   role: IRolePermission
+// }
+
+
+
+// // // DEVICES
+// // export interface IL2NetworkDevice extends INetworkDevice {
+// //   ipMgmt: string,
+// // }
+// //// DEVICE ELEMENTS
+// export type TPortType = "rj45" | "rs232" | "optic"
+
+// export interface IPort {
+//   portIndex: number,
+//   description: string,
+//   to: object
+//   portType: TPortType
+// }
+
+// //// BOX
+// // export interface IBox extends INetworkDevice {
+  
+// // }
+
+
+// // MAP
+// export interface IMapProps {
+//   children?: any,
+// }
+
+// export interface IViewCoordinate {
+//   /**
+//    * - index 0 - latt
+//    * - index 1 - long
+//    */
+//   coordinate: IDBCoordinate
+// }
+
+
+// // END
+
+export enum EFlags { 
+  'waiting_assignee' = 'waiting_assignee',
+  'delivering' = 'delivering',
+  'delivered' = 'delivered',
+  'assigned' = 'assigned',
+  'change_assignee' = 'change_assignee',
+  'preparing_item' = 'preparing_item',
+  'reject' = 'reject',
+  'activated' = 'activated',
+  'disabled' = 'disabled',
+  'open' = 'open',
+  'closed' = 'closed',
+  'completed' = 'completed',
+  'commemt' = 'commemt',
+  'stock' = 'stock',
+  'used' = 'used',
+  'hold' = 'hold',
+  'stored' = 'stored'
 }
-
-
-// MAP
-export interface IMapProps {
-  children?: any,
-}
-
-export interface IThingsCoordinate {
-  /**
-   * - index 0 - latt
-   * - index 1 - long
-   */
-  coordinate: number[]
-}
-
-// DATABSE
-export interface IStock {
-  totalCount: number,
-  inStock: number,
-}
-
-
-
-// END
-
+export type TFlags = `${EFlags}`
+export type TDBFlags = { [k in TFlags]: TFlags } & { flagDescription: string }
 

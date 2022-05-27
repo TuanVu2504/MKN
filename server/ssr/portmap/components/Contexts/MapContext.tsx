@@ -6,7 +6,7 @@ import { Coordinate } from 'ol/coordinate'
 import * as olLayer from 'ol/layer'
 import OlVectorLayer from 'ol/layer/Vector'
 import * as olSource from 'ol/source'
-import { IMapProps, IBox, ISurveyBoxRequest, IDeployedBox } from '/project/shared'
+import { IMapProps, IBox, ISurveyLocationRequest, IDeployedBox } from '/project/shared'
 import * as OLStyle from 'ol/style'
 import { fromLonLat, toLonLat } from 'ol/proj'
 import { DropList } from '../components'
@@ -105,7 +105,7 @@ export const MKNPortMapProvider = React.memo((props: IMapProps) => {
   const modalInputContext = useInputModal()
 
   async function addSurveyRequest(coord?: Coordinate){
-    modalInputContext.addObjectInput<ISurveyBoxRequest, "coordinate">({
+    modalInputContext.addObjectInput<ISurveyLocationRequest, "coordinate">({
       readOnly: true,
       proKey: "coordinate", 
       proValue: coord,
@@ -114,7 +114,7 @@ export const MKNPortMapProvider = React.memo((props: IMapProps) => {
         { "proKey": 1, label: 'Long' }
       ]
     })
-    modalInputContext.addTextField<ISurveyBoxRequest>({
+    modalInputContext.addTextField<ISurveyLocationRequest>({
       "proKey":"requestBy", 
       proValue: authContext.currentUser!.username, 
       readOnly: true,

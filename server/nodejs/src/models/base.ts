@@ -3,5 +3,5 @@ export class MKNBase<T> {
   constructor(props: T){
     this.__constructor = props
   }
-  get json(){ return this.__constructor }
+  toJSON(){ return this.__constructor }
 }

@@ -61,7 +61,7 @@ export const PageLayout = (props: { children: any }) => {
 const CurrentUser = React.forwardRef<HTMLDivElement>((props, ref) => {
   const authContext = useAuth()
   const { currentUser } = authContext
-  const { username } = currentUser!
+  const { userName } = currentUser!
   const router = useRouter()
   return (
     <div className='px-8 py-6 flex flex-row items-center border-b border-b-gray-300' ref={ref}>
@@ -74,7 +74,7 @@ const CurrentUser = React.forwardRef<HTMLDivElement>((props, ref) => {
         AV
       </div>
       <div className='ml-4 h-full'>
-        <div><span className='font-bold text-lg'>Welcome Back,&nbsp;</span><span className='font-semibold'>{username}</span></div>
+        <div><span className='font-bold text-lg'>Welcome Back,&nbsp;</span><span className='font-semibold'>{userName}</span></div>
         <div>
           <a 
             className={

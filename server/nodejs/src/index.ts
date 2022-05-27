@@ -3,9 +3,11 @@ import api from './routes'
 import cookieParser from 'cookie-parser'
 import { TAPIError } from '/project/shared'
 import cors from 'cors'
+import dotenv from 'dotenv'
+dotenv.config({ path: '/project/.env'})
 
 const server = express()
-const port = 8001;
+const port = process.env.API_PORT || 8001
 
 server.use(express.urlencoded({ extended: true }))
 server.use(express.json())
