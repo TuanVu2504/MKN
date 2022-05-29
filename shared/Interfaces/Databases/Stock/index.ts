@@ -26,21 +26,16 @@ export interface IDBStockItem extends
   Pick<IDBStock, "stockId">,
   Pick<IDBItems, "itemId"> {}
 
-export interface IDBItemSet {
-  itemSetId: string,
-  createdAt: string,
-}
-
-export interface IDBItemSetItemList extends
-  Pick<IDBItemSet, "itemSetId">,
-  Pick<IDBTicketItemList, "itemListId"> {}
-
 export interface IDBTicketItemList extends
   Pick<IDBCategories, 'categoryId'>,
   Pick<IDBStock, 'stockId'>,
-  Partial<Pick<IDBItems, 'itemId'>>
-{
-  itemListId: string
+  Partial<Pick<IDBItems, 'itemId'>>,
+  Pick<IDBItemList, 'itemListId'>
+{}
+
+export interface IDBItemList {
+  itemListId: string,
+  createdAt: string
 }
 
 

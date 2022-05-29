@@ -1,7 +1,7 @@
 import { 
   IOperationDBRes, ISQLQuery2, 
   global_constants, TMysqlCompareOperators,
-  DBTables, ReturnTableType, TSQLFilter, IDBTickets, ETable
+  DBTables, ReturnTableType, TSQLFilter, IDBTickets, ETable, EFlags
 } from '/project/shared'
 
 const { helpers } = global_constants
@@ -10,6 +10,7 @@ const MYSQL_DB_ERROR_CODE = {
 }
 
 import mysql from 'mysql'
+// import { Item, ItemList, UserModel } from '@Backend/models';
 
 const pool      =    mysql.createPool({
   connectionLimit : 40, //important
@@ -184,23 +185,42 @@ async function getCoordOfTicket (ticket: IDBTickets){
 }
 
 async function getItemSetOfTicket(ticket: IDBTickets){
-  return mysql_query<ReturnTableType<ETable.itemSet>[]>(
+  return mysql_query<ReturnTableType<ETable.items>[]>(
     `
-    SELECT * FROM ${ETable.itemSet} WHERE itemSetId = (
-      SELECT itemSetId FROM ${ETable.ticketItemSet} WHERE ticketId = '${ticket.ticketId}'
-    )
+    SELECT * FROM ${ETable.items} WHERE holderType='ticket' AND holderId='${ticket.ticketId}'
     `
   ).then(res => res[0] )
 }
 
-const staticQuery = {
-  getCoordOfTicket,
-  getItemSetOfTicket,
-}
+// function getMyItem(context: UserModel ){
+//   return mysql_query<ReturnTableType<ETable.items>[]>(
+//     `
+//     SELECT * FROM ${ETable.items} WHERE holderType='user' AND holderId='${context.accountId}'
+//     `
+//   )
+// }
+
+// function assignItemToItemList(itemList: ItemList, item: Item){
+//   return mysql_query(
+//     `
+//     INSERT INTO ${ETable.ticketItemList} SET itemId='${item.itemId}' 
+//     WHERE itemListId='${itemList.itemListId}' 
+//     AND categoryId='${item.categoryId}' 
+//     AND itemId IS NULL
+//     `
+//   )
+// }
+
+// const staticQuery = {
+//   getCoordOfTicket,
+//   getItemSetOfTicket,
+//   getMyItem,
+//   assignItemToItemList
+// }
 
 export class MKNDB {
   static Table = Table
   static query = mysql_query
-  static staticQuery = staticQuery
+  // static staticQuery = staticQuery
   static ETable = ETable
 }

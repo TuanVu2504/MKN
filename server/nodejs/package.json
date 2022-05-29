@@ -24,7 +24,9 @@
     "ldapjs": "^2.3.2",
     "mysql": "^2.18.1",
     "nodemailer": "^6.7.5",
+    "reflect-metadata": "^0.1.13",
     "ts-loader": "^9.3.0",
+    "typeorm": "^0.3.6",
     "uuid": "^8.3.2",
     "webpack": "^5.72.1",
     "webpack-cli": "^4.9.2"

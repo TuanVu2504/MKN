@@ -1,7 +1,8 @@
 import { AuthorizedError } from '@Backend/Error'
 import { Request, Response, NextFunction } from 'express'
 import * as core from 'express-serve-static-core'
-import { IDBUserInfo, IMethod, IResource, IResLocal  } from '/project/shared'
+import { IMethod, IResource  } from '/project/shared'
+import { IResLocal } from '@Backend/Interface'
 
 
 type TASHCallback<P=core.ParamsDictionary, TResBody=any, TIReqBody=any, TIReqQuery=any> = 
@@ -91,57 +92,57 @@ export function sendReponse<T>(res: Response, res_object: T){
  * 
  * SIR:
  */
-export function Authorized(resource: IResource){
-  return (method: IMethod) => {
-    return ash(async(req, res: Response<any, IResLocal>,next) => {
-      const { userContext } = res.locals
-      // ALL ON ALL
-      if(userContext.role.permissions.some(p => 
-        p.resource == "ALL" && p.method == "ALL")) return next()
+// export function Authorized(resource: IResource){
+//   return (method: IMethod) => {
+//     return ash(async(req, res: Response<any, IResLocal>,next) => {
+//       const { userContext } = res.locals
+//       // ALL ON ALL
+//       if(userContext.role.permissions.some(p => 
+//         p.resource == "ALL" && p.method == "ALL")) return next()
 
-      // ALL ON SPECIFIC resource
-      if(userContext.role.permissions.some(p => 
-        p.resource == resource && p.method == "ALL")) return next()
+//       // ALL ON SPECIFIC resource
+//       if(userContext.role.permissions.some(p => 
+//         p.resource == resource && p.method == "ALL")) return next()
 
-      if(userContext.role.permissions.some(p => 
-        p.resource == resource && p.method == method)) return next()
+//       if(userContext.role.permissions.some(p => 
+//         p.resource == resource && p.method == method)) return next()
       
-      switch(resource){
-        case 'category': {
-          switch(method){
-            case 'GET': {
-              // every one can get category info
-              return next()
-            }
-          }
-        }
-        case 'user': {
-          switch(method){
-            case 'GET':{
-              // allow self
-              if(req.query.id == userContext.userID){ return next()}
-            }
-            case 'PUT': {
-              // allow to modify some proery only
-              // if ['allow-props-to-modify'].include(req.params.id) return next()
-            }
-          }
+//       switch(resource){
+//         case 'category': {
+//           switch(method){
+//             case 'GET': {
+//               // every one can get category info
+//               return next()
+//             }
+//           }
+//         }
+//         case 'user': {
+//           switch(method){
+//             case 'GET':{
+//               // allow self
+//               if(req.query.id == userContext.userID){ return next()}
+//             }
+//             case 'PUT': {
+//               // allow to modify some proery only
+//               // if ['allow-props-to-modify'].include(req.params.id) return next()
+//             }
+//           }
           
-        }
-        case 'contract': {}
-        case 'customer': {}
-        /**
-         * if resourceID - pageID exist in permission table =>
-         *  user must have this permission to access the page
-         * else
-         *  every one can access the page
-         */
-        case 'page': {}
-        default: throw new AuthorizedError(resource, method)
-      }
-    })
-  }
-} 
+//         }
+//         case 'contract': {}
+//         case 'customer': {}
+//         /**
+//          * if resourceID - pageID exist in permission table =>
+//          *  user must have this permission to access the page
+//          * else
+//          *  every one can access the page
+//          */
+//         case 'page': {}
+//         default: throw new AuthorizedError(resource, method)
+//       }
+//     })
+//   }
+// } 
 
 
 export function getTokenFromHeader(req: Request){

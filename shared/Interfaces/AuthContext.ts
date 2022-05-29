@@ -1,16 +1,16 @@
-import { IDBUserInfo } from '/project/shared'
+import { IDBUsers } from '/project/shared'
 export interface IAuthContext {
   loading: boolean,
   login: (username: string, password: string) => void
   logout: () => void
   // verifyCookie: () => void,
-  currentUser?: IDBUserInfo
+  currentUser?: IDBUsers
   error:string[],
 }
 
 export interface IAuthedUser {
   jwt: string,
-  user: IDBUserInfo
+  user: IDBUsers
 }
 
 export interface IAuthSigned {

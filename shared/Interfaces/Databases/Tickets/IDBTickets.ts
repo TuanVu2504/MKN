@@ -1,6 +1,13 @@
-import { IDBCoordinate, TFlags, IDBItemSet, IDBTicketItemList } from '/project/shared'
+import { IDBCoordinate, TFlags, IDBTicketItemList } from '/project/shared'
 
-export type TTicketTypes = 'stock-stock' | 'stock-user' | 'return-stock' | 'surveyLocation' | 'deployBox'
+export enum ETicketType {
+  'stock-stock' = 'stock-stock',
+  'stock-user' = 'stock-user',
+  'return-stock' = 'return-stock',
+  'surveyLocation' = 'surveyLocation',
+  'deployBox' = 'deployBox'
+}
+export type TTicketTypes = `${ETicketType}`
 
 export interface IDBTicketTypes {
   ticketType: TTicketTypes,
@@ -17,7 +24,7 @@ export interface IDBTickets extends
   /** - refrence to `departments`.`departId` */
   queueHolder: string,
   /** - Reference to `accounts`.`accountId` */
-  assignee?: string
+  assignee: string
 }
 
 export interface IDBTicketsCreatePayload extends Pick<IDBTickets, "ticketType"> {}
@@ -31,7 +38,6 @@ export interface IDBTicketSurveyLocaiton extends
 
 export interface IDBTicketDeployBox extends
   Pick<IDBTickets, "ticketId">,
-  Pick<IDBItemSet, "itemSetId">,
   Pick<IDBCoordinate, "coordId"> {}
 
 export interface IDBTicketTransport extends 
@@ -53,3 +59,15 @@ export interface IDBTicketActivities extends
   actionPerformed: TFlags,
   comment?: string,
 }
+
+export interface IDBTicketLocation { 
+  coordId: string,
+  long: string, 
+  latt: string
+}
+
+// export interface IDBItemList {
+//   itemListId: string,
+//   createdAt: string,
+//   itemListState: TFlags
+// }

@@ -1,6 +1,7 @@
+// import { TicketBase } from '@Backend/models';
 import { IResource, IMethod, TAPIError, 
-  TErrorDetail, TMKNRequest, 
-  IDBTickets, TRequestActionPayload 
+  TErrorDetail,
+  // TRequestActionPayload 
 } from '/project/shared'
 
 export class AuthError implements TAPIError {
@@ -54,18 +55,31 @@ export class TicketAuthorizeError implements TAPIError {
   }
 }
 
-export class RequestAuthorizeError implements TAPIError {
-  data = null
+export class ItemOwnerError implements TAPIError {
+  data: null;
   error: { status: number; name: string; message: string; details: TErrorDetail; };
-  constructor(requestID: string, action: TRequestActionPayload['action'] ){
+  constructor(itemId: string){
     this.error = {
       status: 403,
-      name: 'Unauthorized',
-      message: `You are not allowed to ${action} on this request ${requestID}`,
+      name: 'UnAuthorizedOwner',
+      message: `You are not the owner of item ${itemId}`,
       details: {}
     }
   }
 }
+
+// export class RequestAuthorizeError implements TAPIError {
+//   data = null
+//   error: { status: number; name: string; message: string; details: TErrorDetail; };
+//   constructor(requestID: string, action: TRequestActionPayload['action'] ){
+//     this.error = {
+//       status: 403,
+//       name: 'Unauthorized',
+//       message: `You are not allowed to ${action} on this request ${requestID}`,
+//       details: {}
+//     }
+//   }
+// }
 
 export class ParamRequiredError implements TAPIError {
   data = null
@@ -94,29 +108,42 @@ export class ParamRequiredError implements TAPIError {
 //   }
 // }
 
-export class CreateRequestError implements TAPIError {
-  data: null;
-  error: { status: number; name: string; message: string; details: TErrorDetail; };
-  constructor(request: TMKNRequest){
-    this.error = {
-      status: 403, 
-      name: 'RequestAuthorized', 
-      message: `You are not authorized to create request ${request.service} type: ${request.ticketType}`,
-      details: {}
-    }
-  }
-}
+// export class TicketClosedError implements TAPIError {
+//   data: null;
+//   error: { status: number; name: string; message: string; details: TErrorDetail; };
+//   constructor(ticket: TicketBase){
+//     this.error = {
+//       status: 400,
+//       name: 'TicketClosedError',
+//       message: `The ticket ${ticket.ticketId} is closed. Unable to update or do anything`,
+//       details: {},
+//     }
+//   }
+// }
 
-export class RequestPhaseError implements TAPIError {
-  data: null;
-  error: { status: number; name: string; message: string; details: TErrorDetail; };
-  constructor(action: TRequestActionPayload['action']){
-    this.error = {
-      status: 403, 
-      name: 'RequestPhaseError', 
-      message: `You are not allowd to ${action} on this request at this phase`,
-      details: {}
-    }
-  }
-}
+// export class CreateRequestError implements TAPIError {
+//   data: null;
+//   error: { status: number; name: string; message: string; details: TErrorDetail; };
+//   constructor(request: TMKNRequest){
+//     this.error = {
+//       status: 403, 
+//       name: 'RequestAuthorized', 
+//       message: `You are not authorized to create request ${request.service} type: ${request.ticketType}`,
+//       details: {}
+//     }
+//   }
+// }
+
+// export class RequestPhaseError implements TAPIError {
+//   data: null;
+//   error: { status: number; name: string; message: string; details: TErrorDetail; };
+//   constructor(action: TRequestActionPayload['action']){
+//     this.error = {
+//       status: 403, 
+//       name: 'RequestPhaseError', 
+//       message: `You are not allowd to ${action} on this request at this phase`,
+//       details: {}
+//     }
+//   }
+// }
 

@@ -1,7 +1,7 @@
 
 import {  
-  IDBItems, IDBStockItem, IDBItemSetItemList, IDBTicketItemList,
-  TFlags, IDBTickets, IDBCoordinate, IDBItemSet,
+  IDBItems, IDBTicketItemList,
+  TFlags, IDBTickets, IDBCoordinate, IDBItemList,
   IDBUsers, IDBAccounts, oneOf, IDBTicketActivities, 
 } from '/project/shared'
 
@@ -21,10 +21,10 @@ export interface IOperationDBRes {
 export enum ETable {
   'ticketRequestStockItems' = 'ticketRequestStockItems',
   'ticketTransport' = 'ticketTransport', 
-  'itemSet' = 'itemSet',
+  'ticketItem' = 'ticketItem',
+  'itemList' = 'itemList',
   'ticketItemList' = 'ticketItemList',
   'items' = 'items',
-  'ticketItemSet' = 'ticketItemSet',
   'ticketLocation' = 'ticketLocation',
   'ticketActivities' = 'ticketActivities',
   'ticketTypes' = 'ticketTypes',
@@ -43,8 +43,9 @@ export type ReturnTableType<T extends DBTables> =
   T extends ETable.positions ? IDBPosition :
   T extends ETable.ticketActivities ? IDBTicketActivities :
   T extends ETable.tickets ? IDBTickets :
-  T extends ETable.coordinates ? IDBCoordinate : 
-  T extends ETable.itemSet ? IDBItemSet
+  T extends ETable.ticketItemList ? IDBTicketItemList :
+  T extends ETable.coordinates ? IDBCoordinate :
+  T extends ETable.itemList ? IDBItemList
   : never
 
 export type MysqlMethods = "SELECT" | "INSERT" | "UPDATE" | "DELETE"

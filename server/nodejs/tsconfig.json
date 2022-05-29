@@ -9,7 +9,11 @@
     "baseUrl": "./",
     "paths": {
       "@Backend/*": ["./src/*"],
-    }
+    },
+    /** TypeORM */
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
+    /** End TypeORM */
   },
   "lib": ["es2015"],
   "exclude": ["node_modules"]

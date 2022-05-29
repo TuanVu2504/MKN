@@ -109,16 +109,23 @@ export enum EFlags {
   'change_assignee' = 'change_assignee',
   'preparing_item' = 'preparing_item',
   'reject' = 'reject',
+  'rejected' = 'rejected',
   'activated' = 'activated',
   'disabled' = 'disabled',
   'open' = 'open',
+  'create' = 'create',
+  'created' = 'created',
+  'close' = 'close',
   'closed' = 'closed',
   'completed' = 'completed',
-  'commemt' = 'commemt',
+  'comment' = 'comment',
   'stock' = 'stock',
   'used' = 'used',
   'hold' = 'hold',
-  'stored' = 'stored'
+  'stored' = 'stored',
+  'confirm' = 'confirm',
+  'confirmed' = 'confirmed',
+  'require_confirm' = 'require_confirm'
 }
 export type TFlags = `${EFlags}`
 export type TDBFlags = { [k in TFlags]: TFlags } & { flagDescription: string }

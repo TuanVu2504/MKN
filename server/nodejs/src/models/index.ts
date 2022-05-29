@@ -1,7 +1,1 @@
 export * from './User.Model'
-export * from './Item'
-export * from './base'
-export * from './Ticket'
-// export * from './Request'
-// export * from './ViewModel'
-// export * from './CoordinateModel'
