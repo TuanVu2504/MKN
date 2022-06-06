@@ -14,6 +14,14 @@ export class AuthError implements TAPIError {
   }
 }
 
+export class GenericError implements TAPIError {
+  data = null;
+  error: { status: number; name: string; message: string; details: TErrorDetail; };
+  constructor(error: string, code?: number){
+    this.error = { status: code || 400, name:'Generic', message: error, details: {} }
+  }
+}
+
 
 export class ResourceNotFoundError implements TAPIError {
   data = null
@@ -56,7 +64,7 @@ export class TicketAuthorizeError implements TAPIError {
 }
 
 export class ItemOwnerError implements TAPIError {
-  data: null;
+  data = null;
   error: { status: number; name: string; message: string; details: TErrorDetail; };
   constructor(itemId: string){
     this.error = {
@@ -92,6 +100,33 @@ export class ParamRequiredError implements TAPIError {
       details: {}
     }
     if(message) this.error.message += ` ,${message}`
+  }
+}
+export class MKNTypError {
+  static ExpectedStringOrNumber(){
+    return {
+      data: null,
+      error: {
+        status: 400,
+        name: 'TypeError',
+        message: `Expect string or number`,
+        details: {}
+      }
+    }
+  }
+}
+
+
+export class MKNError implements TAPIError {
+  data = null
+  error: { status: number; name: string; message: string; details: TErrorDetail; };
+  constructor(message: string, name?:string, status?:number){
+    this.error = {
+      message,
+      name: name || "MKNError",
+      status: status || 400,
+      details: {}
+    }
   }
 }
 

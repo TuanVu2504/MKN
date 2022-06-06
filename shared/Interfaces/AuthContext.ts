@@ -1,16 +1,15 @@
-import { IDBUsers } from '/project/shared'
+import { IUserDTO } from '/project/shared'
 export interface IAuthContext {
   loading: boolean,
   login: (username: string, password: string) => void
   logout: () => void
   // verifyCookie: () => void,
-  currentUser?: IDBUsers
+  currentUser?: IUserDTO
   error:string[],
 }
 
 export interface IAuthedUser {
-  jwt: string,
-  user: IDBUsers
+  user: IUserDTO
 }
 
 export interface IAuthSigned {

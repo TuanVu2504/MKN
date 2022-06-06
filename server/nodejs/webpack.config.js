@@ -22,4 +22,13 @@ module.exports = {
     filename: 'server.js',
     path: path.resolve(__dirname, 'dist'),
   },
+  // watch: true,
+  // watchOptions: {
+  //   ignored: /node_modules/,
+  // },
+  // devServer: {
+  //   headers: {
+  //     'Access-Control-Allow-Origin': '*'
+  //   }
+  // }s
 };

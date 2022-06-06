@@ -1,5 +1,5 @@
 import { Fetch } from './fetch'
-import { IAuthedUser, IUserInfo } from '/project/shared'
+import { IAuthedUser, IUserDTO } from '/project/shared'
 
 export class AuthenServices {
   static login = function(username: string, password: string){
@@ -12,12 +12,12 @@ export class AuthenServices {
     })
   }
 
-  static async verifyHTTOCookieToken(){
-    return Fetch.doFetch<IUserInfo>(Fetch.baseUrl + "/api/auth")
+  static async verifyHTTPCookieToken(){
+    return Fetch.doFetch<IUserDTO>(Fetch.baseUrl + "/api/auth")
   }
 
   static async logout(){
-    return Fetch.doFetch<IUserInfo>(Fetch.baseUrl + "/api/auth", { 
+    return Fetch.doFetch<IUserDTO>(Fetch.baseUrl + "/api/auth", { 
       method: 'DELETE'
     })
   }
@@ -25,7 +25,7 @@ export class AuthenServices {
 
 export class UserServices {
   static getUserByID(id: string|number){
-    return Fetch.doFetch<IUserInfo>(Fetch.baseUrl + "/api/users/" + id)
+    return Fetch.doFetch<IUserDTO>(Fetch.baseUrl + "/api/users/" + id)
   }
 
 }

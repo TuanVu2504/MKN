@@ -1,6 +1,9 @@
 import { TAPIError } from '/project/shared'
 
 export class Fetch {
+  /**
+   * - "https://file.mekongnet.com.kh"
+   */
   static baseUrl = "https://file.mekongnet.com.kh"
   static doFetch<T>(url: RequestInfo, init?: RequestInit){
     const _init = Object.assign(init || {}, {

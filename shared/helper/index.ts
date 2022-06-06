@@ -1,4 +1,4 @@
-import { Entry, Keys } from '/project/shared'
+import { Entry, Keys,  } from '/project/shared'
 import * as datefns from 'date-fns'
 
 export const sortLargeToSmall = <T>(option?: T extends object ? { by: keyof T } : undefined) => {
@@ -83,7 +83,61 @@ export const global_constants = {
       }
       return true;
     },
+    different,
     entries: <T>(ent: T) => Object.entries(ent) as Entry<T>,
     keys: <T>(obj: T) => Object.keys(obj) as Keys<T>
   },
+}
+
+export function different<T>(from: T, to:T){
+  const fromKeys = Object.keys(from)
+  const toKeys = Object.keys(to)
+  if(fromKeys.length != toKeys.length 
+    || fromKeys.some(fK => toKeys.every(tK => tK != fK ))
+    || toKeys.some(tK => fromKeys.every(fK => tK != fK)))
+  {
+    throw new Error(`Keys between 2 object is not equals`)
+  }
+
+  return global_constants.helpers.entries(to)
+    .reduce((prev, [k,v]) => {
+      if(to[k] != from[k]){ return Object.assign(prev, { [k]: v }) }
+      return prev
+    }, {}) as { [K in keyof T]?: string }
+}
+
+export class StringVerify {
+  static onlyAZ = {
+    test: (val: string) => /^[A-Z]+$/.test(val),
+    error: `Only allow uppercase from A to Z`
+  }
+  static onlyaZ = {
+    test: (val: string) => /^[a-zA-Z]+$/.test(val),
+    error: `Only allow from a to Z`
+  }
+
+  static onlyAZSpace = {
+    test: (val: string) => /^[A-Z\s]+$/.test(val),
+    error: `Only allow uppercase from A to Z and white space`
+  }
+
+  static onlyaZSpace = {
+    test: (val: string) => /^[a-zA-Z\s]+$/.test(val),
+    error: `Only allow from a to Z and white space`
+  }
+
+  static onlyNumber = {
+    test: (val: string) => /^\d+(?:\.\d+)?$/.test(val),
+    error: `Only allow number`
+  }
+
+  static employeeId = {
+    test: (val: string) => /^\d{8}$/.test(val),
+    error: `8 number`
+  }
+
+  static UnixDateString = {
+    test: (val:string|number) => /^\d{10,16}$/.test(val.toString()),
+    error: `invalid unix time`
+  }
 }

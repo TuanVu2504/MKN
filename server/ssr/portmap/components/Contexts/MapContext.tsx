@@ -6,10 +6,9 @@ import { Coordinate } from 'ol/coordinate'
 import * as olLayer from 'ol/layer'
 import OlVectorLayer from 'ol/layer/Vector'
 import * as olSource from 'ol/source'
-import { IMapProps, IBox, ISurveyLocationRequest, IDeployedBox } from '/project/shared'
+// import { IMapProps } from '/project/shared'
 import * as OLStyle from 'ol/style'
 import { fromLonLat, toLonLat } from 'ol/proj'
-import { DropList } from '../components'
 import { useInputModal} from './ModalInputContext'
 import { FontAwesomeIcon as FA } from '@fortawesome/react-fontawesome'
 import ReactDOM from 'react-dom'
@@ -57,8 +56,8 @@ export interface IMapContext {
   },
   handler: {
     addRandomMarker: (e: MapBrowserEvent<any>) => void,
-    addSurveyRequest: (coord?:Coordinate) => Promise<void>,
-    addNewBoxLocation: (coord?:Coordinate) => Promise<void>,
+    // addSurveyRequest: (coord?:Coordinate) => Promise<void>,
+    // addNewBoxLocation: (coord?:Coordinate) => Promise<void>,
     setMouseClick: (e: Coordinate) => void
   },
   element: {
@@ -80,7 +79,7 @@ export interface IMapContext {
 }
 export const MapContext = React.createContext<IMapContext>({} as IMapContext)
 
-export const MKNPortMapProvider = React.memo((props: IMapProps) => {
+export const MKNPortMapProvider = React.memo((props: { children: any}) => {
   const { children } = props
   const authContext = useAuth()
 
@@ -104,38 +103,38 @@ export const MKNPortMapProvider = React.memo((props: IMapProps) => {
 
   const modalInputContext = useInputModal()
 
-  async function addSurveyRequest(coord?: Coordinate){
-    modalInputContext.addObjectInput<ISurveyLocationRequest, "coordinate">({
-      readOnly: true,
-      proKey: "coordinate", 
-      proValue: coord,
-      type: [
-        { "proKey": 0, label: 'Latt' },
-        { "proKey": 1, label: 'Long' }
-      ]
-    })
-    modalInputContext.addTextField<ISurveyLocationRequest>({
-      "proKey":"requestBy", 
-      proValue: authContext.currentUser!.username, 
-      readOnly: true,
-    })
-    const input_confirmed = await modalInputContext.open({ title: "Add box survey request"})
-  }
+  // async function addSurveyRequest(coord?: Coordinate){
+  //   modalInputContext.addObjectInput<ISurveyLocationRequest, "coordinate">({
+  //     readOnly: true,
+  //     proKey: "coordinate", 
+  //     proValue: coord,
+  //     type: [
+  //       { "proKey": 0, label: 'Latt' },
+  //       { "proKey": 1, label: 'Long' }
+  //     ]
+  //   })
+  //   modalInputContext.addTextField<ISurveyLocationRequest>({
+  //     "proKey":"requestBy", 
+  //     proValue: authContext.currentUser!.username, 
+  //     readOnly: true,
+  //   })
+  //   const input_confirmed = await modalInputContext.open({ title: "Add box survey request"})
+  // }
 
-  async function addNewBoxLocation(coord?: Coordinate){
-    modalInputContext.addObjectInput<IDeployedBox, "coordinate">({ 
-                                                      readOnly: true,
-                                                      proKey: "coordinate", 
-                                                      proValue: coord,
-                                                      type: [
-                                                        { "proKey": 0, label: 'Latt' },
-                                                        { "proKey": 1, label: 'Long' }
-                                                      ]
-                                                    })
-    modalInputContext.addTextField<IDeployedBox>({ proKey: "deployedBy", label: "Deployed By" })
+  // async function addNewBoxLocation(coord?: Coordinate){
+  //   modalInputContext.addObjectInput<IDeployedBox, "coordinate">({ 
+  //                                                     readOnly: true,
+  //                                                     proKey: "coordinate", 
+  //                                                     proValue: coord,
+  //                                                     type: [
+  //                                                       { "proKey": 0, label: 'Latt' },
+  //                                                       { "proKey": 1, label: 'Long' }
+  //                                                     ]
+  //                                                   })
+  //   modalInputContext.addTextField<IDeployedBox>({ proKey: "deployedBy", label: "Deployed By" })
 
-    const input_confirmed = await modalInputContext.open({ "title": "Add new box" })
-  }
+  //   const input_confirmed = await modalInputContext.open({ "title": "Add new box" })
+  // }
 
   function addRandomMarker(e: MapBrowserEvent<any>){
     const featureToAdd = new Feature({
@@ -204,8 +203,8 @@ export const MKNPortMapProvider = React.memo((props: IMapProps) => {
     handler: {
       setMouseClick,
       addRandomMarker, 
-      addSurveyRequest,
-      addNewBoxLocation,
+      // addSurveyRequest,
+      // addNewBoxLocation,
     },
     element: {
       overlay: {
@@ -377,7 +376,7 @@ export const MarkerLayer = () => {
     willshow ? ReactDOM.createPortal(
       <div>
         <div>
-          <div 
+          {/* <div 
             onClick={() => handler.addSurveyRequest(toLonLat(randomMarker.coord))}
             className='font-semibold whitespace-nowrap cursor-pointer text-gray-500 hover:text-gray-900 py-1 w-full'>
               Add survey request
@@ -386,7 +385,7 @@ export const MarkerLayer = () => {
             onClick={() => handler.addNewBoxLocation(toLonLat(randomMarker.coord))}
             className='font-semibold whitespace-nowrap cursor-pointer text-gray-500 hover:text-gray-900 py-1 w-full'>
               Add new box
-          </div>
+          </div> */}
         </div>
         <div 
           onClick={closePopup}

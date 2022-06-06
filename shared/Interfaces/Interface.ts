@@ -1,13 +1,3 @@
-// import { IDBCoordinate } from '/project/shared'
-
-// // GENERIC
-
-// export interface ICreatable {
-//   /** - string represent date in miliseconds */
-//   createdAt: string
-//   createdBy: IDBUserInfo
-// }
-
 export type TAPIError = {
   data: null, 
   error: {
@@ -23,83 +13,18 @@ export type TErrorDetail = {}
 
 export type IMethod = 'GET' | 'POST' | 'DELETE' | 'PUT' | "ALL"
 export type IResource = 'page' | 'category' | 'user' | 'customer' | 'contract' | 'ticket' | 'ALL'
-  
-// interface IPassword {
 
-// }
+export enum EAccountType  { 'system' = 'system', 'user' = 'user' }
+export type TAccountType = `${EAccountType}`
 
-
-// // CUSTOMER
-// export interface ICustomer {
-
-// }
-
-// // USER
-// export interface IRole {
-//   /** - Generate by uuid */
-//   roleID: string
-// }
-
-// export interface IRolePermission extends IRole {
-//   permissions: TPermission[]
-// }
-
-// export interface IPermission {
-//   /** - Generate by uuid */
-//   permissionID: string,
-//   resource: IResource
-//   /** 
-//    * sub thing in `content` 
-//    * - page may have 'admin_page' | 'role_page' 
-//    * -  
-//    */
-//   resourceID?: string
-//   method: IMethod
-// }
-
-// export type TPermission = IPermission
-
-// export interface IUserRole extends IDBUserInfo {
-//   role: IRolePermission
-// }
-
-
-
-// // // DEVICES
-// // export interface IL2NetworkDevice extends INetworkDevice {
-// //   ipMgmt: string,
-// // }
-// //// DEVICE ELEMENTS
-// export type TPortType = "rj45" | "rs232" | "optic"
-
-// export interface IPort {
-//   portIndex: number,
-//   description: string,
-//   to: object
-//   portType: TPortType
-// }
-
-// //// BOX
-// // export interface IBox extends INetworkDevice {
-  
-// // }
-
-
-// // MAP
-// export interface IMapProps {
-//   children?: any,
-// }
-
-// export interface IViewCoordinate {
-//   /**
-//    * - index 0 - latt
-//    * - index 1 - long
-//    */
-//   coordinate: IDBCoordinate
-// }
-
-
-// // END
+export enum EImageSize { 
+  'thumbnail' = 'thumbnail', 
+  'small' = 'small', 
+  'medium' = 'medium', 
+  'large' = 'large', 
+  'orginal' = 'orginal' 
+}
+export type TImageSize = `${EImageSize}`
 
 export enum EFlags { 
   'waiting_assignee' = 'waiting_assignee',

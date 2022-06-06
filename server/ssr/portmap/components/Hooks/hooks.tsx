@@ -33,7 +33,7 @@ export function registerEnterAction(cb: () => void) {
   }, [cb])
 }
 
-export function outsideClick<T extends HTMLElement>(ref: React.RefObject<T>, cb: () => void){
+export function outsideClick<T extends HTMLElement>(ref: React.MutableRefObject<T|undefined>, cb: () => void){
   const handler = React.useCallback((e: MouseEvent ) => {
     const current = ref.current
     if(!current) return 

@@ -1,8 +1,5 @@
 import React from 'react'
-import { MKNPortMapProvider, PortMapControl, MKNMap } from '../../components'
-import { get } from 'ol/proj'
-import * as OLSource from 'ol/source'
-import GeoJSON from 'ol/format/GeoJSON'
+import {  MKNMap } from '../../components'
 import { Style, Stroke } from 'ol/style'
 const api_key = "AIzaSyAKNGpdR0rVxhgg1N4uf4FMmszL0IqF-_0"
 const region = 'KH'; const language = 'en'

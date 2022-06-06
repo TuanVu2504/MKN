@@ -14,7 +14,7 @@ const Login = () => {
   
   return (
     <div className='h-screen flex items-center justify-center bg-gray-100'>
-      <div className='px-8 py-6 mt-4 text-left bg-white shadow-lg w-500p'>
+      <div className='px-8 py-6 mt-4 text-left bg-white shadow-lg w-[500px]'>
         <h3 className="text-2xl font-bold text-center">Welcome to IT System</h3>
         <div className='mt-4'>
           <label className='block ml-4'>Username</label>

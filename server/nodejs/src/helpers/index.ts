@@ -1,7 +1,7 @@
 import { AuthorizedError } from '@Backend/Error'
 import { Request, Response, NextFunction } from 'express'
 import * as core from 'express-serve-static-core'
-import { IMethod, IResource  } from '/project/shared'
+import config from '@Backend/config'
 import { IResLocal } from '@Backend/Interface'
 
 
@@ -146,6 +146,8 @@ export function sendReponse<T>(res: Response, res_object: T){
 
 
 export function getTokenFromHeader(req: Request){
-  const token = req.cookies[process.env.auth_token_name]
+  const token = req.cookies[config.auth_token_name]
   return token
 }
+
+export * from './VerifyInput'

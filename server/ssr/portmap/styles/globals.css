@@ -6,7 +6,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: Roboto mono, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+  font-family: Roboto, Roboto mono, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
@@ -18,6 +18,22 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+.flex-1 {
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 0%;
+}
+.flex-2 {
+  flex-grow: 2;
+  flex-shrink: 2;
+  flex-basis: 0%;
+}
+.flex-3 {
+  flex-grow: 3;
+  flex-shrink: 3;
+  flex-basis: 0%;
 }
 
 .ol-map {
@@ -107,6 +123,43 @@ a {
   font-weight: 700;
   font-size: normal;
 }
+
+
+/*  */
+@font-face {
+  font-family: "Roboto";
+  src: url("../../../../shared/assets/fonts/Roboto/Roboto/Roboto-Thin.ttf");
+  font-weight: 100;
+  font-size: normal;
+}
+@font-face {
+  font-family: "Roboto";
+  src: url("../../../../shared/assets/fonts/Roboto/Roboto/Roboto-Light.ttf");
+  font-weight: 300;
+  font-size: normal;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url("../../../../shared/assets/fonts/Roboto/Roboto/Roboto-Regular.ttf");
+  font-weight: 400;
+  font-size: normal;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url("../../../../shared/assets/fonts/Roboto/Roboto/Roboto-Medium.ttf");
+  font-weight: 500;
+  font-size: normal;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url("../../../../shared/assets/fonts/Roboto/Roboto/Roboto-Bold.ttf");
+  font-weight: 700;
+  font-size: normal;
+}
+/*  */
 
 
 @layer components {
